@@ -388,6 +388,9 @@ section {
 .content-column .pub-list-item {
     text-align: justify;
     text-justify: inter-word;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
 }
 
 .visitor-tracker-tiny {
@@ -501,6 +504,9 @@ details summary {
     color: #475569;
     text-align: justify;
     text-justify: inter-word;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
 }
 
 .research-vision-quote {
@@ -535,6 +541,9 @@ details summary {
     color: #475569;
     text-align: justify;
     text-justify: inter-word;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
 }
 
 .research-summary-under-title {
@@ -736,6 +745,9 @@ details summary {
     line-height: 1.68;
     text-align: justify;
     text-justify: inter-word;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
 }
 
 .research-timeline-keywords {
