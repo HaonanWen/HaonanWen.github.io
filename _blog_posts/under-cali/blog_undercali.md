@@ -22,9 +22,10 @@ We introduce **Under-Cali**, a lightweight plug-in framework for **online irregu
 
 ## Motivation
 
-Real-world time series are often **irregularly sampled**: ICU monitors fire at uneven intervals, weather stations miss readings, and motion-capture sensors drop frames. Offline IMTS forecasters handle this reasonably well at training time, but once deployed their weights are frozen. When the data distribution drifts—new patients, sensor changes, climate anomalies—performance degrades.
+<!-- Real-world time series are often **irregularly sampled**: ICU monitors fire at uneven intervals, weather stations miss readings, and motion-capture sensors drop frames. Offline IMTS forecasters handle this reasonably well at training time, but once deployed their weights are frozen. When the data distribution drifts—new patients, sensor changes, climate anomalies—performance degrades. -->
+Real-world time series are often irregularly sampled. ICU monitors record measurements at irregular intervals, weather stations occasionally miss observations, and motion-capture systems may lose sensor readings. Although existing IMTS forecasters perform well during offline training, their model parameters remain fixed after deployment. As the data distribution gradually changes because of new patients, sensor replacements, or climate variation, forecasting performance inevitably declines.
 
-<img src="{{ '/assets/blog/under-cali/human_activity_shift.png' | relative_url }}" alt="Train-test distribution shifts in Human Activity and USHCN." width="620" />
+<img src="{{ '/assets/blog/under-cali/human_activity_shift.png' | relative_url }}" alt="Train-test distribution shifts in Human Activity and USHCN." width="300" />
 *Figure 1: Train-test distribution shifts in the Human Activity dataset; similar drift is observed in USHCN.*
 
 Online learning is a natural fix, but most existing methods assume **regular time series** with dense continuity and periodicity. Those signals are exactly what IMTS lacks. So we ask: *How can we adapt an IMTS forecaster online without relying on periodicity?*
@@ -38,11 +39,11 @@ Our answer: **use forecasting uncertainty as the control signal.** If the model�
 Under-Cali wraps around any pretrained IMTS forecaster and adds three lightweight components:
 
 <img src="{{ '/assets/blog/under-cali/framework.png' | relative_url }}" alt="Under-Cali framework overview." />
-*Figure 2: Overview of Under-Cali. Each incoming batch is first calibrated by the reliable expert; uncertainty scores then route high-uncertainty samples to the unreliable expert, and the adaptive routing module decides when to update each component.*
+*Figure 2: Overview of Under-Cali. Initial predictions are first used to estimate sample uncertainty. The adaptive routing module then allocates samples to the reliable or unreliable calibration expert, where input and output calibration are performed to obtain the final predictions.*
 
 ### 1. Uncertainty Estimator (UE)
 
-We train a small network to predict the **normalized prediction error** of the current forecaster from the input series and its prediction. Importantly, the UE is *not* used to refine the forecast directly; it only provides a control signal for routing and adaptation.
+We train a small network to predict the **normalized prediction error** of the forecaster from the input series and its prediction. Importantly, the UE is *not* used to refine the forecast directly; it only provides a control signal for routing and adaptation.
 
 ### 2. Dual-Expert Gated Distribution Calibrator (GDC)
 
@@ -66,9 +67,9 @@ This avoids blind, every-batch updates that amplify gradient noise, while still 
 
 ## Key Results
 
-### Main results across 21+ backbones and 4 datasets
+### Main Results
 
-We evaluate Under-Cali on **MIMIC**, **PhysioNet**, **Human Activity**, and **USHCN**, covering healthcare, biomechanics, and climate. The framework is applied on top of 9 regular-TS and 12 IMTS forecasters.
+We evaluate Under-Cali on **MIMIC**, **PhysioNet**, **Human Activity**, and **USHCN**, covering healthcare, biomechanics, and climate. The framework is applied on top of 9 regular-MTS and 12 IMTS forecasters.
 
 Notable MSE reductions (selected):
 
@@ -81,9 +82,9 @@ Notable MSE reductions (selected):
 | GraFITi | USHCN | 0.5893 | **0.5546** | −5.9% |
 | HyperIMTS | MIMIC | 0.5568 | **0.5457** | −2.0% |
 
-Improvements hold for both classic IMTS models (mTAN, GRU-D, Warpformer, GraFITi, HyperIMTS) and regular-TS architectures adapted to IMTS (iTransformer, PatchTST, FEDformer, etc.).
+Improvements hold for both classic IMTS models (mTAN, GRU-D, Warpformer, GraFITi, HyperIMTS) and regular-MTS architectures adapted to IMTS (iTransformer, PatchTST, FEDformer, etc.).
 
-### Why each component matters
+### Ablation Study
 
 An ablation on tPatchGNN confirms that removing any core mechanism hurts performance:
 
@@ -96,12 +97,12 @@ An ablation on tPatchGNN confirms that removing any core mechanism hurts perform
 
 The dual-expert design is especially important: about **45% of batches exhibit gradient conflicts** between reliable and unreliable samples, which the isolated experts mitigate.
 
-<img src="{{ '/assets/blog/under-cali/dual_experts_p12.png' | relative_url }}" alt="t-SNE visualization of samples routed to the two experts on PhysioNet." width="620" />
+<img src="{{ '/assets/blog/under-cali/dual_experts_p12.png' | relative_url }}" alt="t-SNE visualization of samples routed to the two experts on PhysioNet." width="460" />
 *Figure 3: t-SNE visualization of samples allocated to the reliable (blue) and unreliable (orange) experts on PhysioNet. The two experts clearly separate different data regions.*
 
 ### Comparison with online and test-time adaptation methods
 
-We compare with OneNet, FSNet, D3A, and TAFAS. Plugging Under-Cali into OneNet and FSNet gives the best results; transferring regular-TS methods such as D3A and TAFAS to IMTS can actually hurt performance on HyperIMTS.
+We compare with OneNet, FSNet, D3A, and TAFAS. Plugging Under-Cali into OneNet and FSNet gives the best results; transferring regular-MTS methods such as D3A and TAFAS to IMTS can actually hurt performance on HyperIMTS.
 
 | Setting | Human Activity MSE | USHCN MSE |
 |---|---|---|
@@ -122,7 +123,7 @@ We compare with OneNet, FSNet, D3A, and TAFAS. Plugging Under-Cali into OneNet a
 - **Inference latency:** Batch-level latency stays within roughly 0.1–0.4 s for common backbones.
 - **Uncertainty consistency:** UE outputs track the true prediction-error trend well.
 
-<img src="{{ '/assets/blog/under-cali/uncertainty_humanactivity.png' | relative_url }}" alt="Uncertainty estimator outputs vs. ground-truth prediction errors on Human Activity." width="620" />
+<img src="{{ '/assets/blog/under-cali/uncertainty_humanactivity.png' | relative_url }}" alt="Uncertainty estimator outputs vs. ground-truth prediction errors on Human Activity." width="460" />
 *Figure 4: Estimated uncertainty scores (blue) closely follow the ground-truth prediction errors (orange) on Human Activity, validating the UE as a reliable control signal.*
 
 - **Noisy UE:** Even when Gaussian noise is injected into UE outputs, performance re-stabilizes within 1–2 batches.

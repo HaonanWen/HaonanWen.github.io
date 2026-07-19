@@ -375,6 +375,42 @@ section {
     border-color: #cbd5e1;
 }
 
+.content-column .body-copy,
+.content-column .body-copy p,
+.content-column .body-copy li,
+.content-column .news-content,
+.content-column .honor-content,
+.content-column .education-content,
+.content-column .research-positioning-text,
+.content-column .research-summary,
+.content-column .research-timeline-detail-description,
+.content-column .publication-card,
+.content-column .pub-list-item {
+    text-align: left;
+}
+
+.visitor-tracker-tiny {
+    position: fixed;
+    right: 10px;
+    bottom: 8px;
+    z-index: 20;
+    width: 46px;
+    height: 18px;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.55);
+    transform-origin: bottom right;
+    pointer-events: none;
+}
+
+.visitor-tracker-tiny iframe,
+.visitor-tracker-tiny img,
+.visitor-tracker-tiny canvas,
+.visitor-tracker-tiny object,
+.visitor-tracker-tiny embed {
+    max-width: none;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -462,6 +498,7 @@ details summary {
     font-size: 1rem;
     line-height: 1.7;
     color: #475569;
+    text-align: left;
 }
 
 .research-vision-quote {
@@ -494,6 +531,7 @@ details summary {
 
 .research-summary {
     color: #475569;
+    text-align: left;
 }
 
 .research-summary-under-title {
@@ -693,6 +731,7 @@ details summary {
     margin: 0.35rem 0 0;
     color: #475569;
     line-height: 1.68;
+    text-align: left;
 }
 
 .research-timeline-keywords {

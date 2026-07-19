@@ -28,6 +28,7 @@ tailwind: true
                         {% if site.name %}<h1 class="text-3xl font-serif font-bold text-primary mb-2">{{ site.name }}</h1>{% endif %}
                         {% if site.role %}<p class="text-lg text-accent font-medium mb-1">{{ site.role }}</p>{% endif %}
                         {% if site.institution %}<p class="text-neutral-600 mb-2">{{ site.institution }}</p>{% endif %}
+                        {% if site.email %}<p class="profile-email text-neutral-500">{{ site.email }}</p>{% endif %}
                     </div>
                     {% endif %}
 
@@ -35,7 +36,7 @@ tailwind: true
                     <div class="social-links flex flex-wrap justify-center gap-2.5 mb-5">
                         {% for link in site.data.social %}
                         {% if link.url and link.icon %}
-                        <a href="{{ link.url }}" target="{% if link.url contains 'mailto:' %}_self{% else %}_blank{% endif %}" rel="{% unless link.url contains 'mailto:' %}noopener noreferrer{% endunless %}" class="social-btn" {% if link.platform %}title="{{ link.platform }}"{% endif %}>
+                        <a href="{{ link.url }}" {% unless link.url contains 'mailto:' %}target="_blank" rel="noopener noreferrer"{% endunless %} class="social-btn" {% if link.platform %}title="{{ link.platform }}"{% endif %}>
                             <i class="{{ link.icon }}"></i>
                         </a>
                         {% endif %}
@@ -133,6 +134,7 @@ tailwind: true
                                     data-timeline-type="Stage"
                                     data-timeline-meta="{% if step.place %}{{ step.place | escape }}{% endif %}"
                                     data-timeline-description="{% if step.description %}{{ step.description | escape }}{% endif %}"
+                                    data-timeline-keywords="{% if step.keywords %}{{ step.keywords | join: ', ' | escape }}{% endif %}"
                                 >
                                     <span class="research-timeline-node-inner">
                                         <span class="research-timeline-marker"></span>
@@ -427,6 +429,10 @@ tailwind: true
         </div>
     </div>
 </main>
+
+<div class="visitor-tracker-tiny" aria-hidden="true">
+    <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=2Di6zmVQQS8oAXUCjUOujhrbjb_VltdRq7LVRdfam48&cl=ffffff&w=a"></script>
+</div>
 
 {% if site.data.publications %}
 <div id="publications-drawer" class="drawer-overlay" aria-hidden="true">
