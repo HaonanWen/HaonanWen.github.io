@@ -1,0 +1,67 @@
+vision: "My research centers on a single question: how can learning systems remain reliable when environments keep changing?"
+vision_quote: "The measure of intelligence is the ability to change."
+vision_quote_author: "Albert Einstein"
+
+intro: >-
+  I study adaptive AI systems that can learn, reason, and operate reliably in dynamic environments.
+
+  My research began with real-world time-series forecasting, where I realized
+  that conventional offline learning often struggles when environments and data
+  distributions continuously evolve.
+
+bridge: >-
+  This observation motivated my long-term
+  interest in building adaptive learning systems that remain reliable under
+  changing conditions. 
+
+journey:
+  - title: "Learning from Real-World Dynamic Systems"
+    # place: "Institute of Automation, Chinese Academy of Sciences"
+    icon: "fas fa-train-subway"
+    description: >-
+      I began by studying complex real-world systems through time-series
+      forecasting, aiming to understand temporal dynamics in transportation and
+      energy systems. These experiences revealed the challenges posed by
+      evolving environments and distribution shifts.
+
+    keywords:
+      - "Time Series Forecasting"
+      - "Dynamic Systems"
+      - "Transportation"
+      - "Energy Systems"
+      
+  # - title: "From Prediction to Adaptation"
+  #   place: "KDD 2026 Research"
+  #   icon: "fas fa-rotate"
+  #   description: >-
+  #     This motivated me to study how learning systems can adapt effectively under distribution shifts and changing environments.
+
+focuses:
+  - title: "Building Adaptive Learning Systems"
+    # place: "KDD 2026 Research"
+    icon: "fas fa-wave-square"
+    description: >-
+      Motivated by these challenges, I study how machine learning models can
+      continuously adapt after deployment. My current research focuses on
+      uncertainty-aware online learning and test-time adaptation for irregular
+      time series under distribution shifts.
+
+    keywords:
+      - "Distribution Shift"
+      - "Online Learning"
+      - "Test-Time Adaptation"
+      - "Uncertainty Estimation"
+
+  - title: "Towards Adaptive Intelligence"
+    # place: "Huawei 2012 Lab"
+    icon: "fas fa-brain"
+    description: >-
+      Looking ahead, I am interested in extending adaptive learning beyond
+      forecasting models toward intelligent agents that can reason, interact,
+      and continually improve while operating in dynamic environments.
+
+    keywords:
+      - "LLM Agents"
+      - "Tool Use"
+      - "Task Shift"
+      - "Reasoning"

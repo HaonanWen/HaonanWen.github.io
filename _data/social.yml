@@ -1,0 +1,15 @@
+- platform: "Email"
+  icon: "fas fa-envelope"
+  url: "mailto:hnanwen@outlook.com"
+
+- platform: "CV"
+  icon: "fas fa-file-pdf"
+  url: "#"
+
+- platform: "Google Scholar"
+  icon: "fas fa-graduation-cap"
+  url: "https://scholar.google.com/citations?user=5bBrrAoAAAAJ&hl"
+
+- platform: "GitHub"
+  icon: "fab fa-github"
+  url: "https://github.com/HaonanWen"

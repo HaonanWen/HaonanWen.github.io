@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/publications.json
+---
+{% if site.data.publications %}{{ site.data.publications | jsonify }}{% else %}[]{% endif %}

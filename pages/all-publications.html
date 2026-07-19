@@ -1,0 +1,23 @@
+---
+layout: listing
+nav_label: All Publications
+section_id: all-publications
+section_title: 📄 All Publications <span class="subtitle-text" id="filter-indicator"></span>
+permalink: /pages/all-publications.html
+---
+
+{% if site.data.publications %}
+<div class="publication-filters" style="margin-top: 0; padding-top: 0; border-top: none;">
+    <a href="{{ '/pages/all-publications.html' | relative_url }}" class="filter-link" id="filter-all">
+        <i class="fas fa-list"></i> All Publications
+    </a>
+    <a href="{{ '/pages/all-publications.html' | relative_url }}?filter=first-author" class="filter-link" id="filter-first">
+        <i class="fas fa-user"></i> First Author Papers
+    </a>
+    <a href="{{ '/pages/all-publications.html' | relative_url }}?filter=accepted" class="filter-link" id="filter-accepted">
+        <i class="fas fa-check-circle"></i> Accepted Papers
+    </a>
+</div>
+
+<div id="all-publications-container" class="publications-list"></div>
+{% endif %}

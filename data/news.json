@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/news.json
+---
+{% if site.data.news %}{{ site.data.news | jsonify }}{% else %}[]{% endif %}

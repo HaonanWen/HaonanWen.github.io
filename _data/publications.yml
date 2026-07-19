@@ -1,0 +1,43 @@
+- title: "Online Irregular Multivariate Time Series Forecasting via Uncertainty-Driven Dual-Expert Calibration"
+  authors: "<strong>Haonan Wen</strong>, Hanyang Chen, Songhe Feng"
+  type: "accepted"
+  isFirstAuthor: true
+  showOnHomepage: true
+  featuredOrder: 1
+  venue: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2026."
+  # highlight: "(Oral)"
+  thumbnail: "assets/publications/under-cali.jpg"
+  tags:
+    - text: "Paper"
+      link: "https://www.alphaxiv.org/abs/2605.28603"
+    - text: "Code"
+      link: "https://github.com/HaonanWen/Under-Cali"
+    - text: "Blog"
+      link: "/blog/under-cali/"
+  citation: |
+    @article{wen2026online,
+      title={Online Irregular Multivariate Time Series Forecasting via Uncertainty-Driven Dual-Expert Calibration},
+      author={Wen, Haonan and Chen, Hanyang and Feng, Songhe},
+      journal={arXiv preprint arXiv:2605.28603},
+      year={2026}
+    }
+
+- title: "Beyond English: Uncovering the Multilingual Gap in Vision-Language-Action Models"
+  authors: "Hanyang Chen, Hongliang Li, Jiarui Cao, Yang Li, Yang Jiang, <strong>Haonan Wen</strong>, Kaiyu Huang, Shengnan Guo, Huaiyu Wan"
+  type: "preprint"
+  isFirstAuthor: true
+  showOnHomepage: false
+  venue: "arXiv:2606.15714, 2026."
+  thumbnail: "assets/publications/mpca.jpg"
+  tags:
+    - text: "Paper"
+      link: "https://www.alphaxiv.org/abs/2606.15714"
+    - text: "Blog"
+      link: "https://hanyang-chen.github.io/blogs/mvla/"
+  citation: |
+    @article{chen2026english,
+      title={Beyond English: Uncovering the Multilingual Gap in Vision-Language-Action Models},
+      author={Chen, Hanyang and Li, Hongliang and Cao, Jiarui and Li, Yang and Jiang, Yang and Wen, Haonan and Huang, Kaiyu and Guo, Shengnan and Wan, Huaiyu},
+      journal={arXiv preprint arXiv:2606.15714},
+      year={2026}
+    }

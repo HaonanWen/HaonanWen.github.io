@@ -1,0 +1,462 @@
+---
+layout: default
+tailwind: true
+---
+
+<main class="min-h-screen pt-20 lg:pt-[6.5rem] pb-10">
+    <div class="w-full max-w-[1320px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div class="grid-layout">
+            {% if site.profile_image or site.name or site.role or site.institution or site.data.social or site.data.interests %}
+            <div class="profile-column">
+                <div class="profile-card">
+                    {% if site.profile_image %}
+                    <div class="profile-image-container mb-5 mx-auto max-w-[168px]">
+                        <img
+                            src="{{ site.profile_image | relative_url }}?v={{ site.time | date: '%s' }}"
+                            alt="Profile portrait"
+                            class="w-full h-auto rounded-xl shadow-sm"
+                            loading="eager"
+                            decoding="async"
+                            fetchpriority="high"
+                            onerror="this.onerror=null;this.src='{{ '/assets/profile.jpg' | relative_url }}?v={{ site.time | date: '%s' }}';"
+                        >
+                    </div>
+                    {% endif %}
+
+                    {% if site.name or site.role or site.institution %}
+                    <div class="text-center mb-5">
+                        {% if site.name %}<h1 class="text-3xl font-serif font-bold text-primary mb-2">{{ site.name }}</h1>{% endif %}
+                        {% if site.role %}<p class="text-lg text-accent font-medium mb-1">{{ site.role }}</p>{% endif %}
+                        {% if site.institution %}<p class="text-neutral-600 mb-2">{{ site.institution }}</p>{% endif %}
+                    </div>
+                    {% endif %}
+
+                    {% if site.data.social %}
+                    <div class="social-links flex flex-wrap justify-center gap-2.5 mb-5">
+                        {% for link in site.data.social %}
+                        {% if link.url and link.icon %}
+                        <a href="{{ link.url }}" target="{% if link.url contains 'mailto:' %}_self{% else %}_blank{% endif %}" rel="{% unless link.url contains 'mailto:' %}noopener noreferrer{% endunless %}" class="social-btn" {% if link.platform %}title="{{ link.platform }}"{% endif %}>
+                            <i class="{{ link.icon }}"></i>
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if site.data.interests %}
+                    <div class="research-interests-card bg-neutral-100 rounded-xl p-4 mb-5">
+                        <h3 class="font-serif font-bold text-lg text-primary mb-3 pb-2 border-b border-neutral-200 flex items-center">
+                            <i class="fas fa-lightbulb text-accent mr-2 text-base"></i> Research Interests
+                        </h3>
+                        <ul class="space-y-3">
+                            {% for interest in site.data.interests %}
+                            {% if interest.name %}
+                            <li class="flex items-center text-neutral-700 hover:text-primary transition-colors">
+                                <i class="{% if interest.icon %}{{ interest.icon }}{% else %}fas fa-circle{% endif %} text-accent/80 mr-3 w-5 text-center text-sm"></i>
+                                <span class="text-sm font-medium">{{ interest.name }}</span>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="content-column space-y-10">
+                {% if site.data.about %}
+                <section id="homepage" class="scroll-mt-22">
+                    <span id="about"></span>
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">About Me</h2>
+                    </div>
+                    <div class="prose max-w-none text-neutral-600 text-justify body-copy">
+                        {% if site.data.about.intro %}
+                        <p class="mb-4">{{ site.data.about.intro }}</p>
+                        {% endif %}
+
+                        {% if site.data.about.collaboration %}
+                        <div class="highlight-box bg-accent/10 border-l-4 border-accent p-4 rounded-r-lg text-left font-sans">
+                            <p>
+                                <strong><i class="fas fa-lightbulb text-accent mr-2"></i>Open to collaboration.</strong>
+                                {{ site.data.about.collaboration }}
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if site.data.research %}
+                <section id="research-thrust" class="scroll-mt-22">
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Research Overview</h2>
+                    </div>
+                    <div class="prose max-w-none text-neutral-600 text-justify body-copy research-overview-copy">
+                        {% if site.data.research.vision %}
+                        <div class="research-positioning">
+                            <h3 class="research-compact-title">Research Vision</h3>
+                            {% if site.data.research.vision_quote %}
+                            <blockquote class="research-vision-quote">
+                                <p class="research-vision-quote-text">
+                                    {{ site.data.research.vision_quote }}
+                                    {% if site.data.research.vision_quote_author %}
+                                    <span class="research-vision-quote-author">— {{ site.data.research.vision_quote_author }}</span>
+                                    {% endif %}
+                                </p>
+                            </blockquote>
+                            {% endif %}
+                            <p class="research-positioning-text">{{ site.data.research.vision }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if site.data.research.journey or site.data.research.focuses %}
+                        <div class="research-compact-section mt-8">
+                            <h3 class="research-compact-title">Research Roadmap</h3>
+                            {% if site.data.research.intro or site.data.research.bridge %}
+                            <p class="research-summary research-summary-under-title">
+                                {% if site.data.research.intro %}{{ site.data.research.intro }}{% endif %}
+                                {% if site.data.research.bridge %} {{ site.data.research.bridge }}{% endif %}
+                            </p>
+                            {% endif %}
+                            <div class="research-timeline-interactive">
+                                <div class="research-timeline-track" aria-hidden="true"></div>
+                                <div class="research-timeline-runner" aria-hidden="true"></div>
+                                {% if site.data.research.journey %}
+                                {% for step in site.data.research.journey %}
+                                {% if step.title %}
+                                <button
+                                    type="button"
+                                    class="research-timeline-node"
+                                    data-timeline-title="{{ step.title | escape }}"
+                                    data-timeline-type="Stage"
+                                    data-timeline-meta="{% if step.place %}{{ step.place | escape }}{% endif %}"
+                                    data-timeline-description="{% if step.description %}{{ step.description | escape }}{% endif %}"
+                                >
+                                    <span class="research-timeline-node-inner">
+                                        <span class="research-timeline-marker"></span>
+                                        <span class="research-timeline-node-type">Stage</span>
+                                        <span class="research-timeline-node-title">{{ step.title }}</span>
+                                    </span>
+                                </button>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+
+                                {% if site.data.research.focuses %}
+                                {% for focus in site.data.research.focuses %}
+                                {% if focus.title %}
+                                <button
+                                    type="button"
+                                    class="research-timeline-node research-timeline-node-current"
+                                    data-timeline-title="{{ focus.title | escape }}"
+                                    data-timeline-type="Current"
+                                    data-timeline-meta=""
+                                    data-timeline-description="{% if focus.description %}{{ focus.description | escape }}{% endif %}"
+                                    data-timeline-keywords="{% if focus.keywords %}{{ focus.keywords | join: ', ' | escape }}{% endif %}"
+                                >
+                                    <span class="research-timeline-node-inner">
+                                        <span class="research-timeline-marker"></span>
+                                        <span class="research-timeline-node-type">Current</span>
+                                        <span class="research-timeline-node-title">{{ focus.title }}</span>
+                                    </span>
+                                </button>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="research-timeline-detail" id="research-timeline-detail" hidden>
+                                <div class="research-timeline-detail-type" id="research-timeline-detail-type"></div>
+                                <h4 class="research-timeline-detail-title" id="research-timeline-detail-title"></h4>
+                                <div class="research-inline-meta" id="research-timeline-detail-meta"></div>
+                                <p class="research-timeline-detail-description" id="research-timeline-detail-description"></p>
+                                <p class="research-timeline-keywords" id="research-timeline-detail-keywords" hidden></p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if site.data.news %}
+                <section id="latest-news" class="scroll-mt-24">
+                    <div class="section-header mb-6 flex justify-between items-center">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Latest News</h2>
+                        <button type="button" id="news-toggle-btn" class="section-inline-toggle text-sm font-medium text-accent hover:text-accent-dark transition-colors">
+                            View All <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    <div id="news-container" class="news-list body-copy space-y-4"></div>
+                    <div id="news-expanded-panel" class="section-expand-panel" aria-hidden="true">
+                        <div id="news-expanded-container" class="news-list body-copy space-y-4"></div>
+                    </div>
+                </section>
+                {% endif %}
+
+                {% assign blog_posts = site.blog_posts | sort: 'date' | reverse %}
+                {% if site.data.blog or blog_posts.size > 0 %}
+                <section id="blog" class="scroll-mt-24">
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Blogs</h2>
+                    </div>
+                    <div class="body-copy">
+                        {% if site.data.blog.intro %}
+                        <p class="mb-5 text-neutral-600">{{ site.data.blog.intro }}</p>
+                        {% endif %}
+
+                        {% if blog_posts.size > 0 %}
+                        <div class="blog-list space-y-4">
+                            {% for post in blog_posts %}
+                            {% if post.title %}
+                            <article class="blog-item" data-post-url="{{ post.url | relative_url }}">
+                                <div class="blog-meta">
+                                    {% if post.date %}<span class="blog-date">{{ post.date | date: "%b. %-d, %Y" }}</span>{% endif %}
+                                    {% if post.tag %}<span class="blog-tag">{{ post.tag }}</span>{% endif %}
+                                </div>
+                                <h3 class="blog-title">{{ post.title }}</h3>
+                                {% if post.summary %}<p class="blog-summary">{{ post.summary }}</p>{% endif %}
+                                <button type="button" class="blog-open-trigger" aria-label="Open blog post {{ post.title }}">
+                                    Read More <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                                <div class="blog-hidden-post" hidden>
+                                    <div class="blog-hidden-title">{{ post.title }}</div>
+                                    {% if post.date %}<div class="blog-hidden-date">{{ post.date | date: "%b. %-d, %Y" }}</div>{% endif %}
+                                    {% if post.tag %}<div class="blog-hidden-tag">{{ post.tag }}</div>{% endif %}
+                                    <div class="blog-hidden-content">{% if post.summary %}<p>{{ post.summary }}</p>{% endif %}</div>
+                                </div>
+                            </article>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="blog-empty-state">
+                            <p>Posts will appear here as I start sharing notes and reflections.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if blog_posts.size > 0 %}
+                <div id="blog-reader" class="blog-reader-overlay" aria-hidden="true">
+                    <div class="blog-reader-backdrop" data-close-blog-reader="true"></div>
+                    <div class="blog-reader-panel" role="dialog" aria-modal="true" aria-labelledby="blog-reader-title">
+                        <div class="blog-reader-header">
+                            <div class="blog-reader-header-meta">
+                                <div id="blog-reader-date" class="blog-reader-date"></div>
+                                <div id="blog-reader-tag" class="blog-reader-tag"></div>
+                            </div>
+                            <div class="blog-reader-actions">
+                                <button type="button" id="toggle-blog-reader-expand" class="blog-reader-action-btn" aria-label="Expand blog reader">
+                                    <i class="fas fa-expand-alt"></i> Expand
+                                </button>
+                                <button type="button" id="close-blog-reader" class="blog-reader-close-btn" aria-label="Close blog reader">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="blog-reader-body">
+                            <h3 id="blog-reader-title" class="blog-reader-title"></h3>
+                            <div id="blog-reader-content" class="blog-reader-content body-copy"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if site.data.publications %}
+                <section id="publications" class="scroll-mt-24">
+                    <div class="section-header mb-6 flex justify-between items-start gap-4">
+                        <div>
+                            <h2 class="text-3xl font-serif font-bold text-primary">Selected Publications</h2>
+                        </div>
+                        <button type="button" id="open-publications-drawer" class="section-inline-toggle text-sm font-medium text-accent hover:text-accent-dark transition-colors whitespace-nowrap mt-1">
+                            View All <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+
+                    <div id="featured-publications-container" class="publications-list body-copy space-y-6"></div>
+                </section>
+                {% endif %}
+
+                {% if site.data.honors %}
+                <section id="honors" class="scroll-mt-24">
+                    <div class="section-header mb-6 flex justify-between items-center">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Honors & Awards</h2>
+                        <button type="button" id="honors-toggle-btn" class="section-inline-toggle text-sm font-medium text-accent hover:text-accent-dark transition-colors">
+                            View All <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                    <div id="honors-container" class="honors-list body-copy space-y-4"></div>
+                    <div id="honors-expanded-panel" class="section-expand-panel" aria-hidden="true">
+                        <div id="honors-expanded-container" class="honors-list body-copy space-y-4"></div>
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if site.data.service %}
+                <section id="services" class="scroll-mt-24">
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Academic Service</h2>
+                    </div>
+                    <div class="timeline space-y-6">
+                        {% for item in site.data.service %}
+                        {% if item.role %}
+                        <div class="timeline-item flex gap-4">
+                            <div class="school-logo-container w-16 h-16 flex-shrink-0 bg-white rounded-lg shadow-sm p-2 flex items-center justify-center border border-neutral-100 text-2xl text-accent">
+                                <i class="{% if item.icon %}{{ item.icon }}{% else %}fas fa-check{% endif %}"></i>
+                            </div>
+                            <div class="timeline-content body-copy">
+                                <h3 class="font-semibold text-primary">{{ item.role }}</h3>
+                                {% if item.subtitle %}<p class="text-sm text-accent font-medium">{{ item.subtitle }}</p>{% endif %}
+                                {% if item.description %}<p class="text-sm text-neutral-600 mt-1 leading-relaxed">{{ item.description }}</p>{% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if site.data.internship %}
+                <section id="internship" class="scroll-mt-24">
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Internship</h2>
+                    </div>
+                    <div class="timeline space-y-6">
+                        {% for item in site.data.internship %}
+                        {% if item.company %}
+                        <div class="timeline-item flex gap-4">
+                            <div class="school-logo-container w-16 h-16 flex-shrink-0 bg-white rounded-lg shadow-sm p-2 flex items-center justify-center border border-neutral-100 text-2xl text-accent">
+                                {% if item.icon and item.icon contains '/' %}
+                                <img
+                                    src="{{ item.icon | relative_url }}"
+                                    alt="{{ item.company }} logo"
+                                    class="internship-logo w-full h-full object-contain"
+                                    loading="lazy"
+                                >
+                                {% else %}
+                                <i class="{% if item.icon %}{{ item.icon }}{% else %}fas fa-briefcase{% endif %}"></i>
+                                {% endif %}
+                            </div>
+                            <div class="timeline-content body-copy">
+                                <h3 class="font-semibold text-primary">{{ item.company }}</h3>
+                                {% if item.years %}<p class="text-sm text-accent font-medium">{{ item.years }}</p>{% endif %}
+                                {% if item.description %}<p class="text-sm text-neutral-600 mt-1 leading-relaxed">{{ item.description }}</p>{% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if site.data.education %}
+                <section id="educations" class="scroll-mt-24">
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Education</h2>
+                    </div>
+                    <div class="timeline space-y-6">
+                        {% for item in site.data.education %}
+                        {% if item.degree %}
+                        <div class="timeline-item flex gap-4">
+                            <div class="school-logo-container w-16 h-16 flex-shrink-0 bg-white rounded-lg shadow-sm p-2 flex items-center justify-center border border-neutral-100 text-2xl text-accent">
+                                {% if item.icon and item.icon contains '/' %}
+                                <img
+                                    src="{{ item.icon | relative_url }}"
+                                    alt="{{ item.institution | default: item.degree }} logo"
+                                    class="education-logo w-full h-full object-contain"
+                                    loading="lazy"
+                                >
+                                {% else %}
+                                <i class="{% if item.icon %}{{ item.icon }}{% else %}fas fa-graduation-cap{% endif %}"></i>
+                                {% endif %}
+                            </div>
+                            <div class="timeline-content body-copy">
+                                <h3 class="font-semibold text-primary">{{ item.degree }}</h3>
+                                {% if item.years %}<p class="text-sm text-accent font-medium">{{ item.years }}</p>{% endif %}
+                                {% if item.institution %}<p class="text-sm text-neutral-600 mt-1">{{ item.institution }}</p>{% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+
+                {% if site.data.contact %}
+                <section id="contact" class="scroll-mt-24">
+                    <div class="section-header mb-6">
+                        <h2 class="text-3xl font-serif font-bold text-primary">Contact</h2>
+                    </div>
+                    <div class="contact-card body-copy bg-white rounded-xl shadow-sm border border-neutral-200 p-5">
+                        {% if site.data.contact.office %}
+                        <div class="mb-4">
+                            <h3 class="font-semibold text-primary mb-2">Office Address</h3>
+                            <p class="text-neutral-600 flex items-start gap-2">
+                                <i class="fas fa-map-marker-alt mt-1 text-accent"></i>
+                                <span>{{ site.data.contact.office }}</span>
+                            </p>
+                        </div>
+                        {% endif %}
+
+                        {% if site.email %}
+                        <div class="mb-4">
+                            <h3 class="font-semibold text-primary mb-2">Email</h3>
+                            <p class="text-neutral-600 flex items-start gap-2">
+                                <i class="fas fa-envelope mt-1 text-accent"></i>
+                                <span>{{ site.email }}</span>
+                            </p>
+                        </div>
+                        {% endif %}
+
+                        {% if site.data.contact.widget_title or site.data.contact.widget_note %}
+                        <div class="visitor-stats text-center">
+                            {% if site.data.contact.widget_title %}<h3 class="font-semibold text-primary mb-2">{{ site.data.contact.widget_title }}</h3>{% endif %}
+                            {% if site.data.contact.widget_note %}
+                            <p class="text-sm text-neutral-500">
+                                {{ site.data.contact.widget_note }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </section>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% if site.data.publications %}
+<div id="publications-drawer" class="drawer-overlay" aria-hidden="true">
+    <div class="drawer-backdrop" data-close-drawer="true"></div>
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="publications-drawer-title">
+        <div class="drawer-header">
+            <div>
+                <p class="drawer-kicker">Publications</p>
+                <h2 id="publications-drawer-title" class="drawer-title">All Publications</h2>
+            </div>
+            <button type="button" id="close-publications-drawer" class="drawer-close-btn" aria-label="Close publications drawer">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="drawer-body">
+            <div class="drawer-toolbar">
+                <label for="publications-search-input" class="drawer-search-label">Search publications</label>
+                <div class="drawer-search-wrap">
+                    <i class="fas fa-search drawer-search-icon"></i>
+                    <input
+                        id="publications-search-input"
+                        type="search"
+                        class="drawer-search-input"
+                        placeholder="Search by title, author, venue, or year"
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div id="publications-drawer-container" class="publications-list body-copy space-y-6"></div>
+        </div>
+    </div>
+</div>
+{% endif %}

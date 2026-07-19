@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (function() {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var resolvedTheme = prefersDark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', resolvedTheme);
+        document.documentElement.style.colorScheme = resolvedTheme;
+      })();
+    </script>
+    <title>
+        {% if page.title %}
+            {{ page.title }}
+        {% elsif page.nav_label %}
+            {{ page.nav_label }} - {{ site.name | default: site.title | default: 'AcaNova-X' }}
+        {% else %}
+            {{ site.name | default: site.title | default: 'AcaNova-X' }}
+        {% endif %}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    {% if page.tailwind %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: '#fefffe',
+              foreground: '#0f172a',
+              primary: '#1e293b',
+              accent: '#d4a562',
+              'accent-dark': '#b88a4d',
+              muted: '#64748b'
+            },
+            fontFamily: {
+              sans: ['Source Sans 3', 'sans-serif'],
+              serif: ['Crimson Text', 'serif']
+            }
+          }
+        }
+      };
+    </script>
+    {% endif %}
+</head>
+<body class="{% if page.tailwind %}bg-background text-foreground antialiased font-sans{% endif %}">
+    {% if page.url == '/' or page.url == '/index.html' %}
+      {% include nav.html %}
+    {% else %}
+      {% include nav_minimal.html %}
+    {% endif %}
+
+    {{ content }}
+
+    {% include footer.html %}
+    <script src="{{ '/script.js' | relative_url }}"></script>
+</body>
+</html>

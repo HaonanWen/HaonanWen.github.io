@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.name | default: site.title | default: 'AcaNova-X' }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="bg-background text-foreground antialiased font-sans">
+    {% include nav_minimal.html %}
+
+    <main class="min-h-screen pt-20 lg:pt-24 pb-12">
+        <article class="max-w-[860px] mx-auto px-5 sm:px-6 lg:px-8">
+            <header class="mb-8">
+                <div class="blog-meta mb-4">
+                    {% if page.date %}<span class="blog-date">{{ page.date | date: "%b. %-d, %Y" }}</span>{% endif %}
+                    {% if page.tag %}<span class="blog-tag">{{ page.tag }}</span>{% endif %}
+                </div>
+                <h1 class="blog-reader-title">{{ page.title }}</h1>
+                {% if page.summary %}
+                <p class="blog-summary text-lg">{{ page.summary }}</p>
+                {% endif %}
+            </header>
+
+            <div id="blog-post-source" class="blog-reader-content body-copy">
+                {{ content }}
+            </div>
+        </article>
+    </main>
+
+    {% include footer.html %}
+    <script src="{{ '/script.js' | relative_url }}"></script>
+</body>
+</html>

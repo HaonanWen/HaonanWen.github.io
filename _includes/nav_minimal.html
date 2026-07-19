@@ -1,0 +1,13 @@
+<nav class="top-nav">
+    <ul class="nav-links" style="display:flex; gap:1.25rem; align-items:center; padding:0.85rem 1.25rem; max-width:1100px; margin:0 auto;">
+        <li><a href="{{ '/' | relative_url }}" class="nav-item">Home</a></li>
+        {% if page.nav_label or page.title %}
+        <li><a href="#" class="nav-item active">{{ page.nav_label | default: page.title }}</a></li>
+        {% endif %}
+        <li style="margin-left:auto;">
+            <button type="button" class="theme-toggle-btn" data-theme-toggle aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </li>
+    </ul>
+</nav>

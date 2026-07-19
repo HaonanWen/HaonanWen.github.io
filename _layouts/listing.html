@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<div class="content-container">
+  <div class="main-wrapper">
+    <main class="main-content">
+      <section id="{{ page.section_id }}" class="section">
+        {% if page.section_title %}
+        <h2 class="section-title">{{ page.section_title }}</h2>
+        {% endif %}
+
+        <div class="content-block" style="margin-top: 30px;">
+          {{ content }}
+          <div class="view-all-container">
+            <a href="{{ '/' | relative_url }}" class="view-all-btn"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>

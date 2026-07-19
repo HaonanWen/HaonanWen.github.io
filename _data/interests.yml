@@ -1,0 +1,8 @@
+- name: "Time Series Forecasting"
+  icon: "fas fa-chart-line"
+
+- name: "Test-Time Adaptation"
+  icon: "fas fa-sync-alt"
+
+- name: "LLM Agents"
+  icon: "fas fa-robot"

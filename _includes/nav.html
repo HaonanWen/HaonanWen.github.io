@@ -1,0 +1,57 @@
+<nav class="top-nav glass fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-14 lg:h-16">
+            <div class="flex-shrink-0 lg:hidden">
+                {% if site.name %}
+                <a href="#" class="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200">
+                    {{ site.name }}
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="hidden lg:block ml-auto">
+                <div class="flex items-center justify-end gap-4">
+                    <ul class="nav-links flex space-x-8">
+                        <li><a href="#about" class="nav-item">About</a></li>
+                        <li><a href="#research-thrust" class="nav-item">Research</a></li>
+                        {% if site.data.news %}<li><a href="#latest-news" class="nav-item">News</a></li>{% endif %}
+                        {% if site.data.blog or site.blog_posts.size > 0 %}<li><a href="#blog" class="nav-item">Blogs</a></li>{% endif %}
+                        {% if site.data.publications %}<li><a href="#publications" class="nav-item">Publications</a></li>{% endif %}
+                        {% if site.data.honors %}<li><a href="#honors" class="nav-item">Honors</a></li>{% endif %}
+                        {% if site.data.service %}<li><a href="#services" class="nav-item">Service</a></li>{% endif %}
+                        {% if site.data.internship %}<li><a href="#internship" class="nav-item">Internship</a></li>{% endif %}
+                        {% if site.data.education %}<li><a href="#educations" class="nav-item">Education</a></li>{% endif %}
+                        {% if site.data.contact %}<li><a href="#contact" class="nav-item">Contact</a></li>{% endif %}
+                    </ul>
+                    <button type="button" class="theme-toggle-btn" data-theme-toggle aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:hidden flex items-center gap-2">
+                <button type="button" class="theme-toggle-btn" data-theme-toggle aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn p-2 rounded-md text-neutral-600 hover:text-primary" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu lg:hidden absolute top-14 left-0 w-full bg-white/95 backdrop-blur-md border-b border-neutral-200 shadow-lg" id="mobile-menu" aria-hidden="true">
+            <ul class="flex flex-col py-4 px-4 space-y-4">
+                <li><a href="#about" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">About</a></li>
+                <li><a href="#research-thrust" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Research</a></li>
+                {% if site.data.news %}<li><a href="#latest-news" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">News</a></li>{% endif %}
+                {% if site.data.blog or site.blog_posts.size > 0 %}<li><a href="#blog" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Blogs</a></li>{% endif %}
+                {% if site.data.publications %}<li><a href="#publications" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Publications</a></li>{% endif %}
+                {% if site.data.honors %}<li><a href="#honors" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Honors</a></li>{% endif %}
+                {% if site.data.service %}<li><a href="#services" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Service</a></li>{% endif %}
+                {% if site.data.internship %}<li><a href="#internship" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Internship</a></li>{% endif %}
+                {% if site.data.education %}<li><a href="#educations" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Education</a></li>{% endif %}
+                {% if site.data.contact %}<li><a href="#contact" class="mobile-nav-item block text-neutral-600 hover:text-primary font-medium">Contact</a></li>{% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,68 @@
+# Jekyll configuration for AcaNova-X
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+title: AcaNova-X
+name: Haonan Wen
+role: Master Student
+institution: Beijing Jiaotong University
+email: hnanwen@outlook.com
+profile_image: assets/haonanwen.jpg
+description: >-
+  Modern academic homepage template with a two-column landing page,
+  YAML-driven content, selected publication cards, and an expanded
+  publications page with optional demo preview support.
+
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax
+
+plugins:
+  - jekyll-feed
+
+collections:
+  blog_posts:
+    output: true
+    permalink: /blog/:name/
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+exclude:
+  - README.md
+  - docs/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Keep the original static file paths for compatibility
+include:
+  - data
+
+# Preserve assets when rebuilding
+keep_files:
+  - assets
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: "_blog_posts"
+      type: "blog_posts"
+    values:
+      layout: "blog_post"

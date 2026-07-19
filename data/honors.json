@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /data/honors.json
+---
+{% if site.data.honors %}{{ site.data.honors | jsonify }}{% else %}[]{% endif %}
