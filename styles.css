@@ -3375,6 +3375,22 @@ html[data-theme='dark'] .research-timeline-node.is-active .research-timeline-mar
         padding-top: 5rem;
     }
 
+    .content-column .body-copy,
+    .content-column .body-copy p,
+    .content-column .body-copy li,
+    .content-column .news-content,
+    .content-column .honor-content,
+    .content-column .education-content,
+    .content-column .research-positioning-text,
+    .content-column .research-summary,
+    .content-column .research-timeline-detail-description,
+    .content-column .publication-card,
+    .content-column .pub-list-item {
+        text-align: left;
+        text-justify: auto;
+        line-height: 1.62;
+    }
+
     .news-item,
     .honor-item {
         grid-template-columns: 1fr;
