@@ -386,7 +386,8 @@ section {
 .content-column .research-timeline-detail-description,
 .content-column .publication-card,
 .content-column .pub-list-item {
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .visitor-tracker-tiny {
@@ -498,7 +499,8 @@ details summary {
     font-size: 1rem;
     line-height: 1.7;
     color: #475569;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .research-vision-quote {
@@ -531,7 +533,8 @@ details summary {
 
 .research-summary {
     color: #475569;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .research-summary-under-title {
@@ -731,7 +734,8 @@ details summary {
     margin: 0.35rem 0 0;
     color: #475569;
     line-height: 1.68;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .research-timeline-keywords {

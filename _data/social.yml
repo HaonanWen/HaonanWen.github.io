@@ -4,7 +4,7 @@
 
 - platform: "CV"
   icon: "fas fa-file-pdf"
-  url: "/assets/CV_whn_new.pdf"
+  url: "/assets/CV_whn_website.pdf"
 
 - platform: "Google Scholar"
   icon: "fas fa-graduation-cap"
