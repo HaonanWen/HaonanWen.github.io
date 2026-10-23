@@ -564,7 +564,8 @@ function loadHonors() {
         return;
     }
 
-    fetch(getDataPath('honors.json'))
+    const dataVersion = document.getElementById('site-script')?.dataset.siteVersion || Date.now();
+    fetch(`${getDataPath('honors.json')}?v=${dataVersion}`, { cache: 'no-store' })
         .then(handleJsonResponse)
         .then(items => {
             if (homeContainer) {
